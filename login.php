@@ -3,6 +3,16 @@ if(!empty($_POST['email']) && !empty($_POST['password']))
 {
     require("includes/config.php");
 	require("includes/security.php");
+
+    $licenciaStatus = false;
+    // 2. Cargar helpers y banner SOLAMENTE si la carpeta client existe
+    if (is_dir(__DIR__ . '/client') && file_exists(__DIR__ . '/client/license_helpers.php')) {
+        require_once __DIR__ . '/client/license_helpers.php';
+        if (function_exists('license_client_render_banner')) {
+        $licenciaStatus = true;
+        }
+    }
+
 	/*guardo los datos del usuario y los limpio de cualquier caracter*/
 	$email = mysqli_real_escape_string($link,$_POST['email']);
 	$pass = mysqli_real_escape_string($link,$_POST['password']);
@@ -25,6 +35,20 @@ if(!empty($_POST['email']) && !empty($_POST['password']))
             $tipo = $row['tipo_u'];
             switch ($tipo) {
                 case 1:
+                    if($licenciaStatus){
+                       //mostrar circulo de cargando por 4 segundos con el texto de licencia activa
+                        ?>
+                        <div class="preloader">
+                            <div class="loading">
+                                <div class="loading-content">
+                                    <div class="spinner"></div>
+                                    <div class="text">Cargando licencia...</div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        exit;
+                    }
                     header("Location: home.php");
                 break;
                 case 2:
