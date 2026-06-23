@@ -35,25 +35,61 @@ if(!empty($_POST['email']) && !empty($_POST['password']))
             $tipo = $row['tipo_u'];
             switch ($tipo) {
                 case 1:
-                    if($licenciaStatus){
-                       //mostrar circulo de cargando por 4 segundos con el texto de licencia activa
-                        ?>
-                        <div class="preloader">
-                            <div class="loading">
-                                <div class="loading-content">
-                                    <div class="spinner"></div>
-                                    <div class="text">Cargando licencia...</div>
-                                </div>
+                    ?>
+                    <!DOCTYPE html>
+                    <html lang="es">
+                    <head>
+                        <meta charset="UTF-8">
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                        <title>Cargando...</title>
+                        <script src="https://cdn.tailwindcss.com"></script>
+                        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+                        <style>
+                            body { font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+                            @keyframes spin-slow {
+                                from { transform: rotate(0deg); }
+                                to { transform: rotate(360deg); }
+                            }
+                            .animate-spin-slow {
+                                animation: spin-slow 2s linear infinite;
+                            }
+                        </style>
+                    </head>
+                    <body class="bg-gradient-to-br from-[#21499a] via-[#1a3a7a] to-[#0f244d] min-h-screen flex items-center justify-center">
+                        <div class="text-center">
+                            <!-- Spinner Contenedor -->
+                            <div class="relative flex items-center justify-center mb-8">
+                                <!-- Círculo exterior -->
+                                <div class="w-24 h-24 border-4 border-white/10 border-t-white rounded-full animate-spin"></div>
+                                <!-- Círculo interior -->
+                                <div class="absolute w-16 h-16 border-4 border-white/5 border-b-yellow-400 rounded-full animate-spin-slow"></div>
+                                <!-- Logo o Punto central -->
+                                <div class="absolute w-2 h-2 bg-white rounded-full shadow-[0_0_15px_rgba(255,255,255,0.8)]"></div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <h2 class="text-white text-xl font-light tracking-[0.2em] uppercase animate-pulse">
+                                    <?php echo $licenciaStatus ? 'Cargando... Licencia activa' : 'Cargando...'; ?>
+                                </h2>
+                                <p class="text-white/40 text-xs tracking-widest uppercase">Por favor espere un momento</p>
                             </div>
                         </div>
-                        <?php
-                        exit;
-                    }
-                    header("Location: home.php");
+
+                        <script>
+                            setTimeout(function() {
+                                window.location.href = 'home.php';
+                            }, 4000);
+                        </script>
+                    </body>
+                    </html>
+                    <?php
+                    exit;
                 break;
                 case 2:
-                    //header("Location: inicio.php");
-                    // header("Location: index.php");
+                    header("Location: home.php");
+                break;
+                default:
+                    header("Location: home.php");
                 break;
             }
             
