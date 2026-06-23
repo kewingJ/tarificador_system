@@ -1,0 +1,542 @@
+[
+  {
+    "technology": "PJSIP",
+    "resource": "1100",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1101",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1102",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1103",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1104",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1105",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1106",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1107",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1108",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1109",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1110",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1111",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1112",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1113",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1114",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1115",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1116",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1117",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1118",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1119",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1120",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1121",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1122",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1123",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1124",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1125",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1126",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1127",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1128",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1129",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1130",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1131",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1132",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1133",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1134",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1135",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1136",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1137",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1138",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1139",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1140",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1141",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1142",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1143",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1144",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1145",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1146",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1147",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1148",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1149",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1150",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1151",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1152",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1153",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1154",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1155",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1156",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1157",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1158",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1159",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "trunk-claro",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "504",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1160",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "503",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1161",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "502",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1162",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "501",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1163",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "500",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1164",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1170",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1171",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1172",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1173",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1174",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1175",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1176",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1177",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1180",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1183",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1184",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1185",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1186",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1190",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1191",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1192",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "1193",
+    "state": "offline",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "gxw_4104",
+    "state": "online",
+    "channel_ids": []
+  },
+  {
+    "technology": "PJSIP",
+    "resource": "goip1",
+    "state": "offline",
+    "channel_ids": []
+  }
+]
