@@ -265,6 +265,11 @@
                                 </a>
                             </li>
                             <li>
+                                <a href="#tab_historial" data-toggle="tab">
+                                    <i class="fa fa-history"></i> Historial de Chat
+                                </a>
+                            </li>
+                            <li>
                                 <a href="#tab_logs" data-toggle="tab">
                                     <i class="fa fa-list-alt"></i> Logs o Resultados
                                 </a>
@@ -476,6 +481,27 @@
                                                     </table>
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane" id="tab_historial">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="table-responsive">
+                                            <table id="tablaHistorialChat" class="table table-bordered table-striped" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Remitente</th>
+                                                        <th>Destinatario</th>
+                                                        <th>Mensaje</th>
+                                                        <th>Fecha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody></tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -1211,6 +1237,13 @@
                 tablaGrupos = $('#tablaGruposXmpp').DataTable({ language: dataTableLang });
                 tablaMiembros = $('#tablaMiembrosGrupo').DataTable({ language: dataTableLang, paging: false, searching: false, info: false });
                 tablaLogs = $('#tablaLogsXmpp').DataTable({ language: dataTableLang, order: [[0, 'desc']] });
+                var tablaHistorial = $('#tablaHistorialChat').DataTable({
+                    language: dataTableLang,
+                    processing: true,
+                    serverSide: true,
+                    ajax: 'ajax_table/ajax_table_chat_history.php',
+                    order: [[0, 'desc']]
+                });
 
                 cargarConfig();
                 cargarUsuarios();

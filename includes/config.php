@@ -38,4 +38,20 @@ $devices = "90/100";
 //activar modulos
 $activar_sistema = true;
 
+// tabla ejabberd
+define('DB_DATABASE_EJABBERD', 'db_ejabberd');
+define('DB_SERVER_EJABBERD', 'localhost');
+define('DB_USERNAME_EJABBERD', 'root');
+define('DB_PASSWORD_EJABBERD', '');
+
+$linkEjabberd = mysqli_connect(DB_SERVER_EJABBERD, DB_USERNAME_EJABBERD, DB_PASSWORD_EJABBERD, DB_DATABASE_EJABBERD) or die(mysqli_error($linkEjabberd));
+@mysqli_query($linkEjabberd,"SET NAMES 'utf8mb4'");
+
+$sql_details_ejabberd = array(
+    'user' => DB_USERNAME_EJABBERD,
+    'pass' => DB_PASSWORD_EJABBERD,
+    'db'   => DB_DATABASE_EJABBERD,
+    'host' => DB_SERVER_EJABBERD
+);
+
 ?>
