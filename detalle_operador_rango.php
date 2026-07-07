@@ -311,65 +311,7 @@
     <body class="hold-transition skin-blue layout-top-nav">
         <!-- Site wrapper -->
         <div class="wrapper">
-            <div class="main-header bg-header wow fadeInDown animated animated" style="visibility: visible;">
-                <div class="container">
-                    <a href="home.php" class="header-logo" style="width: 40px;"></a>
-                    
-                    <ul class="header-nav collapse">
-                        <li class="active">
-                            <a href="home.php" title="">
-                                <i class="fa fa-home"></i>
-                                Inicio
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="user.php" title="">
-                                <!-- <i class="fa fa-users"></i> -->
-                                <img src="img/user.png" width="20%">
-                                Usuarios
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="prefijos.php" title="">
-                                <!-- <i class="fa fa-list"></i> -->
-                                <img src="img/prefijo.png" width="20%">
-                                Prefijos
-                            </a>
-                        </li>
-
-                        <?php
-                            if($look_view_audio) {
-                                echo '
-                                    <li class="">
-                                        <a href="listAudio.php" title="">
-                                            <!-- <i class="fa fa-file-audio-o"></i> -->
-                                            <img src="img/audio.png" width="10%">
-                                            Audios grabados
-                                        </a>
-                                    </li>
-                                ';
-                            }
-                        ?>
-
-                        <li class="active">
-                            <a href="modulo_xmpp.php" title="">
-                                <img src="img/conversation_chat.png" width="40%">
-                                IM
-                            </a>
-                        </li>
-
-                        <li class="">
-                            <a href="salir.php" title="">
-                                <!-- <i class="fa fa-power-off"></i> -->
-                                <img src="img/salir.png" width="20%">
-                                Salir
-                            </a>
-                        </li>
-                    </ul><!-- .header-nav -->
-                </div><!-- .container -->
-            </div>
+            <?php include 'includes/navbar.php'; ?>
             <!-- =============================================== -->
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -646,5 +588,6 @@
             });
         </script> 
 
+    <?php include 'includes/footer_license.php'; ?>
     </body>
 </html>

@@ -1,0 +1,13 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/autoload.php';
+
+use LicenseClient\LicenseGuard;
+
+$licenseGuardOptions = isset($licenseGuardOptions) && is_array($licenseGuardOptions)
+    ? $licenseGuardOptions
+    : [];
+
+LicenseGuard::protect($licenseGuardOptions);

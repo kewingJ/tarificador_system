@@ -4,14 +4,6 @@
     date_default_timezone_set('America/Managua');
 
     $licenciaStatus = false;
-    // 2. Cargar helpers y banner SOLAMENTE si la carpeta client existe
-    if (is_dir(__DIR__ . '/client') && file_exists(__DIR__ . '/client/license_helpers.php')) {
-        require_once __DIR__ . '/client/license_helpers.php';
-        if (function_exists('license_client_render_modal')) {
-            // license_client_render_modal();
-            $licenciaStatus = true;
-        }
-    }
 
     session_start();
     $id = $_SESSION['id_u'];
@@ -629,77 +621,7 @@
     <body class="hold-transition skin-blue layout-top-nav">
         <!-- Site wrapper -->
         <div class="wrapper">
-            <div class="main-header bg-header wow fadeInDown animated animated" style="visibility: visible;">
-                <div class="container">
-                    <a href="home.php" class="header-logo" style="width: 40px;"></a>
-                    
-                    <ul class="header-nav collapse">
-                        <li class="active">
-                            <a href="home.php" title="">
-                                <i class="fa fa-home"></i>
-                                Inicio
-                            </a>
-                        </li>
-
-                        <li <?php echo $content; ?> class="">
-                            <a href="user.php" title="">
-                                <!-- <i class="fa fa-users"></i> -->
-                                <img src="img/user.png" width="20%">
-                                Usuarios
-                            </a>
-                        </li>
-
-                        <li <?php echo $content; ?> class="">
-                            <a href="prefijos.php" title="">
-                                <!-- <i class="fa fa-list"></i> -->
-                                <img src="img/prefijo.png" width="20%">
-                                Prefijos
-                            </a>
-                        </li>
-
-                        <?php
-                            if($look_view_audio) {
-                                echo '
-                                    <li class="">
-                                        <a href="listAudio.php" title="">
-                                            <!-- <i class="fa fa-file-audio-o"></i> -->
-                                            <img src="img/audio.png" width="10%">
-                                            Audios grabados
-                                        </a>
-                                    </li>
-                                ';
-                            }
-                        ?>
-
-                        <li class="active">
-                            <a href="modulo_xmpp.php" title="">
-                                <img src="img/conversation_chat.png" width="40%">
-                                IM
-                            </a>
-                        </li>
-
-                        <?php
-                        if($licenciaStatus){
-                        ?>
-                        <li class="">
-                            <a href="#modalLicense" data-toggle="modal">
-                                <!-- <i class="fa fa-list"></i> -->
-                                <img src="img/license.png" width="15%">
-                                Licencia
-                            </a>
-                        </li>
-                        <?php } ?>
-
-                        <li class="">
-                            <a href="salir.php" title="">
-                                <!-- <i class="fa fa-power-off"></i> -->
-                                <img src="img/salir.png" width="20%">
-                                Salir
-                            </a>
-                        </li>
-                    </ul><!-- .header-nav -->
-                </div><!-- .container -->
-            </div>
+            <?php include 'includes/navbar.php'; ?>
             <!-- =============================================== -->
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
@@ -1303,6 +1225,9 @@
                                                             <button type="button" id="btnEliminarExtensiones" class="btn btn-danger" style="display: none; margin-right: 8px;">
                                                                 <i class="fa fa-trash"></i> Eliminar
                                                             </button>
+                                                            <button type="button" id="btnEditEndpointsConf" class="btn btn-primary" style="margin-right: 8px;">
+                                                                <i class="fa fa-file-text-o"></i> Editar archivo .conf
+                                                            </button>
                                                             <button type="button" id="btnCambios" class="btn btn-success">
                                                                 <i class="fa fa-refresh"></i> Aplicar cambios
                                                             </button>
@@ -1514,32 +1439,23 @@
                     </div>
                 </div>
 
-                <!-- Modal -->
-                <div class="modal fade" id="licenseStatusModal" tabindex="-1" role="dialog" aria-labelledby="licenseStatusLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content license-dark">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
-                            <h4 class="modal-title" id="licenseStatusLabel">Status</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div class="kv">
-                            <div><span>Purchased Subscription:</span><strong id="ls-subscription">—</strong></div>
-                            <div><span>Activation Key:</span>
-                                <div class="key-row">
-                                <code id="ls-key">—</code>
-                                <button class="btn btn-xs btn-inverse" id="ls-copy">Copy</button>
-                                </div>
+
+                <!-- Modal Edit Endpoints Conf -->
+                <div class="modal fade" id="modalEditEndpointsConf" tabindex="-1" role="dialog" aria-labelledby="modalEditEndpointsConfLabel">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="modalEditEndpointsConfLabel">Editar tel_endpoints.conf</h4>
                             </div>
-                            <div><span>Expire Time:</span><strong id="ls-expire">—</strong></div>
-                            <div><span>Number of licensed devices:</span><strong id="ls-licensed">—</strong></div>
-                            <div><span>Number of active devices:</span><strong id="ls-active">—</strong></div>
+                            <div class="modal-body">
+                                <div id="editEndpointsAlert" style="display:none;" class="alert"></div>
+                                <textarea id="txtEndpointsConfContent" class="form-control" style="font-family: monospace; height: 500px; resize: vertical;"></textarea>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <small id="ls-activated-at" class="text-muted">Activated: —</small>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                        </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                <button type="button" class="btn btn-primary" id="btnSaveEndpointsConf">Guardar y Sincronizar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4309,50 +4225,6 @@
             });
         </script>
 
-        <script>
-            function fmtDateISOToPretty(s) {
-                if (!s) return '—';
-                // Mostrar como: Jan 31, 2025 3:57 PM (formato aproximado)
-                var d = new Date(s.replace(' ', 'T'));
-                if (isNaN(d)) return s;
-                var opts = {year:'numeric', month:'short', day:'2-digit', hour:'numeric', minute:'2-digit'};
-                return d.toLocaleString(undefined, opts);
-            }
-
-            $('#btnLicenseStatus').on('click', function(){
-                $.getJSON('controller/license_status.php', function(resp){
-                if (!resp.ok) {
-                    alert('No se pudo obtener el estado: '+ (resp.error || 'desconocido'));
-                    return;
-                }
-                var d = resp.data;
-                $('#ls-subscription').text(d.subscription || '—');
-                $('#ls-key').text(d.activation_key || '—');
-                $('#ls-expire').text(fmtDateISOToPretty(d.expire_at));
-                $('#ls-licensed').text(d.licensed_devices ?? '—');
-                $('#ls-active').text(d.active_devices ?? '—');
-                $('#ls-activated-at').text('Activated: ' + fmtDateISOToPretty(d.activated_at));
-
-                $('#licenseStatusModal').modal('show');
-                }).fail(function(){
-                    alert('Error consultando el estado de la licencia');
-                });
-            });
-
-            // Copiar activation key
-            $('#ls-copy').on('click', function(){
-                var txt = $('#ls-key').text().trim();
-                if (!txt || txt === '—') return;
-                var ta = document.createElement('textarea');
-                ta.value = txt;
-                document.body.appendChild(ta);
-                ta.select();
-                try { document.execCommand('copy'); } catch(e){}
-                document.body.removeChild(ta);
-                $(this).text('Copied!').prop('disabled', true);
-                setTimeout(()=> { $('#ls-copy').text('Copy').prop('disabled', false); }, 1200);
-            });
-        </script>
 
         <!-- table de extensiones lista -->
         <script type="text/javascript">
@@ -4822,12 +4694,60 @@
                     })
                 });
             });
+            // Lógica para editar endpoints conf
+            $('#btnEditEndpointsConf').on('click', function(){
+                $('#editEndpointsAlert').hide();
+                $('#txtEndpointsConfContent').val('Cargando...');
+                
+                $.ajax({
+                    url: 'controller/ajax_get_endpoints_file.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response){
+                        if(response.ok){
+                            $('#txtEndpointsConfContent').val(response.data);
+                            $('#modalEditEndpointsConf').modal('show');
+                        }else{
+                            notif({msg: "Error al cargar archivo: " + response.message, type: "error", position: "center"});
+                        }
+                    },
+                    error: function(){
+                        notif({msg: "Error de red al cargar el archivo.", type: "error", position: "center"});
+                    }
+                });
+            });
+
+            $('#btnSaveEndpointsConf').on('click', function(){
+                var content = $('#txtEndpointsConfContent').val();
+                var btn = $(this);
+                btn.prop('disabled', true).text('Guardando...');
+                $('#editEndpointsAlert').hide();
+
+                $.ajax({
+                    url: 'controller/ajax_save_endpoints_file.php',
+                    type: 'POST',
+                    data: { content: content },
+                    dataType: 'json',
+                    success: function(response){
+                        btn.prop('disabled', false).text('Guardar y Sincronizar');
+                        if(response.ok){
+                            $('#modalEditEndpointsConf').modal('hide');
+                            notif({msg: response.message, type: "success", position: "center"});
+                            if(typeof tableExtensiones !== 'undefined' && tableExtensiones) {
+                                tableExtensiones.ajax.reload(null, false);
+                            }
+                        }else{
+                            $('#editEndpointsAlert').removeClass('alert-success').addClass('alert-danger').html('<strong>Error:</strong> ' + response.message).show();
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        btn.prop('disabled', false).text('Guardar y Sincronizar');
+                        $('#editEndpointsAlert').removeClass('alert-success').addClass('alert-danger').html('<strong>Error de servidor:</strong> ' + error).show();
+                    }
+                });
+            });
         </script>
 
-        <?php
-            if ($licenciaStatus) {
-                license_client_render_modal();
-            }
-        ?>
+        <?php include_once 'includes/footer_license.php'; ?>
     </body>
 </html>

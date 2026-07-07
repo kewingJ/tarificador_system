@@ -175,61 +175,7 @@
 
     <body class="hold-transition skin-blue layout-top-nav">
         <div class="wrapper">
-            <div class="main-header bg-header wow fadeInDown animated animated" style="visibility: visible;">
-                <div class="container">
-                    <a href="home.php" class="header-logo" style="width: 40px;"></a>
-
-                    <ul class="header-nav collapse">
-                        <li>
-                            <a href="home.php" title="">
-                                <i class="fa fa-home"></i>
-                                Inicio
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="user.php" title="">
-                                <img src="img/user.png" width="20%">
-                                Usuarios
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="prefijos.php" title="">
-                                <img src="img/prefijo.png" width="20%">
-                                Prefijos
-                            </a>
-                        </li>
-
-                        <?php
-                            if($look_view_audio) {
-                                echo '
-                                    <li>
-                                        <a href="listAudio.php" title="">
-                                            <img src="img/audio.png" width="10%">
-                                            Audios grabados
-                                        </a>
-                                    </li>
-                                ';
-                            }
-                        ?>
-
-                        <li class="active">
-                            <a href="modulo_xmpp.php" title="">
-                                <img src="img/conversation_chat.png" width="40%">
-                                IM
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="salir.php" title="">
-                                <img src="img/salir.png" width="20%">
-                                Salir
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <?php include 'includes/navbar.php'; ?>
 
             <div class="content-wrapper">
                 <section class="content-header">
@@ -1604,5 +1550,6 @@
                 });
             });
         </script>
+    <?php include 'includes/footer_license.php'; ?>
     </body>
 </html>

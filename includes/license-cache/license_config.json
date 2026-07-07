@@ -1,0 +1,10 @@
+{
+    "base_url": "http://localhost/license",
+    "token_activacion": "50A8F64F7FA0E77D4A5DC269",
+    "license_key": "SMARTVOICE-SRV-1D-TRF-814EV-D1END-20260708",
+    "installation_id": "SMARTVOICE-INST-NMJGJ-20260708",
+    "app_id": "tarificador",
+    "domain": "localhost",
+    "activated_at": "2026-07-07T00:05:13-06:00",
+    "expiration_commands": []
+}
