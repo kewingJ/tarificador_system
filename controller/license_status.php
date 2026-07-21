@@ -5,6 +5,10 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 date_default_timezone_set('America/Managua');
 
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
+
 include_once '../includes/config.php';
 
 $resp = [

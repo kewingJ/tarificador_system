@@ -1,4 +1,10 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
+
+header('Content-Type: application/json; charset=utf-8');
+
 $file_path = '/Applications/XAMPP/xamppfiles/htdocs/tarificador/endpoints/tel_endpoints.conf';
 
 if (!file_exists($file_path)) {

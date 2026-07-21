@@ -1,18 +1,26 @@
 <?php
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_ajax_auth_or_cli();
+
     include_once '../includes/config.php';
     include_once '../includes/security.php';
 
     error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
 
     // $ruta_archivo = '../src/datos.json';
     // $contenido_json = file_get_contents($ruta_archivo);
     // $output = $contenido_json; 
 
-    $command = "curl -s -X GET -u $usuario_ari:$password_ari $ip_servidor_ari:8088/ari/endpoints";
+    $command = "curl -s --connect-timeout 3 --max-time 5 -X GET -u $usuario_ari:$password_ari $ip_servidor_ari:8088/ari/endpoints";
     $output = shell_exec($command);
 
     $datos = json_decode($output, true);
+    if (!is_array($datos)) {
+        $datos = [];
+    }
 
     $json1 = $output;
     $json2 = '{"draw":0,"recordsTotal":0,"recordsFiltered":0,"data":[]}';

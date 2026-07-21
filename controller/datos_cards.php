@@ -1,12 +1,17 @@
 <?php
+    session_start();
+    require_once('../includes/auth_check.php');
+    require_ajax_auth();
+
     require("../includes/config.php");
     require("../includes/security.php");
 
     error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
 
-    $fecha1 = $_POST['fecha1'];
-    $fecha2 = $_POST['fecha2'];
+    $fecha1 = mysqli_real_escape_string($link, $_POST['fecha1']);
+    $fecha2 = mysqli_real_escape_string($link, $_POST['fecha2']);
 
     $total_llamadas = 0;
     $entrantes = 0;

@@ -1,4 +1,7 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
 include_once '../includes/config.php';
 
 // DB table to use
@@ -30,7 +33,7 @@ $columns = array(
                     $imagen = "img/avatar2.png";
                     break;
             }
-            return '<img src="'.$imagen.'" style="width: 60%;" class="img-circle" alt="user image">';
+            return '<img src="'.$imagen.'" style="width: 40px; height: 40px; object-fit: cover;" class="img-circle" alt="user image">';
         } 
     ),
     array( 'db' => 'first_name',        'dt' => 2,
@@ -43,8 +46,16 @@ $columns = array(
                 return htmlspecialchars(utf8_encode($d), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
         } 
     ),
-    array( 'db' => 'phone_number',      'dt'    => 4 ),
-    array( 'db' => 'account_index',     'dt'    => 5 ),
+    array( 'db' => 'phone_number',      'dt' => 4,
+        'formatter' => function( $d, $row ) {
+                return htmlspecialchars(utf8_encode($d), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        }
+    ),
+    array( 'db' => 'account_index',     'dt' => 5,
+        'formatter' => function( $d, $row ) {
+                return htmlspecialchars(utf8_encode($d), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+        }
+    ),
     array( 'db' => 'nombre_ex',         'dt'    => 6 ),
     array( 'db' => 'id_phonebook',      'dt'    => 7 )
 );

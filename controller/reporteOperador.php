@@ -1,4 +1,7 @@
-<?php 
+<?php
+	session_start();
+	require_once('../includes/auth_check.php');
+	require_web_auth();
 	require_once('../includes/config.php');
     include_once '../includes/security.php';
 

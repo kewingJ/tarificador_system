@@ -1,4 +1,7 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
 include_once '../includes/config.php';
  
 $nombre = "ssh-failed";
@@ -29,7 +32,7 @@ switch ($rango) {
 }
 
 // DB table to use
-$operador = $_POST['operador'];
+$operador = mysqli_real_escape_string($link, $_POST['operador']);
 $table = <<<EOT
  (
     SELECT * FROM cdr_espejo

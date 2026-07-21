@@ -2,6 +2,8 @@
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	$id = $_SESSION['id_u'];
 
 	if (!empty($_POST['id_phonebook']) && !empty($_POST['nombre']) && !empty($_POST['nombre2']) && !empty($_POST['tel'])) 
@@ -15,9 +17,10 @@
 
 		//imagen de perfil
         $url = "https://api.genderize.io?name=" . urlencode($nombre);
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        $genero = $data['gender'];
+        $context = stream_context_create(['http' => ['timeout' => 3], 'https' => ['timeout' => 3]]);
+        $response = @file_get_contents($url, false, $context);
+        $data = $response !== false ? json_decode($response, true) : null;
+        $genero = is_array($data) ? ($data['gender'] ?? '') : '';
 		
 		if (empty($tipo)) {
 			$query = mysqli_query($link,"UPDATE tbla_book_phonebook SET first_name = '$nombre',

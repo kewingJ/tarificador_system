@@ -1,8 +1,11 @@
 <?php
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_ajax_auth();
     include_once '../includes/config.php';
     include_once '../includes/security.php';
     include_once '../geoIp/geoiploc.php';
-    
+
     //limpiar bloqueo
     $query1 = mysqli_query($link,"TRUNCATE bloqueo_ataques") or die(mysqli_error($link));
     //limpiar grafica

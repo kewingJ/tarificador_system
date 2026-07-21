@@ -5,29 +5,28 @@
     date_default_timezone_set('America/Managua');
 
     session_start();
+    require_once 'includes/auth_check.php';
+    require_web_auth(1);
+
     $id = $_SESSION['id_u'];
     $nombre = $_SESSION['nombre'];
     $apellido = $_SESSION['apellido'];
     $activo = $_SESSION['activo'];
     $tipo = $_SESSION['tipo_usuario'];
-    
+
     /*optener solo el primer nombre y el primer apellido del profesor*/
     $nombre = explode(' ', $nombre);
     @$nombre = $nombre[0];
-    
+
     $apellido = explode(' ', $apellido);
     @$apellido = $apellido[0];
 
     //
     $operador = $_GET['tipo!'];
     $rango = $_GET['rango!'];
-    
+
     $consult = mysqli_query($link,"SELECT * FROM usuario WHERE id_usuario = '$id'");
     $row = mysqli_fetch_array($consult);
-    
-    if (empty($id) || empty($activo) || $tipo != 1) {
-        header("Location: index.php");
-    }
 ?>
 <!DOCTYPE html>
 <html>

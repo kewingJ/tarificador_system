@@ -2,7 +2,13 @@
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	$id = $_SESSION['id_u'];
+
+    function xml_escape($value) {
+        return htmlspecialchars((string) $value, ENT_XML1 | ENT_QUOTES, 'UTF-8');
+    }
 
     $xml_output = "<CiscoIPPhoneDirectory>\n";
 	$xml_output .= "\t<Title>Cisco Coporate Directory</Title>\n";
@@ -16,8 +22,8 @@
     while($row = mysqli_fetch_array($query)){
         $nombre_ex = strtolower($row['nombre_ex']);
     	$xml_output .= "\t<DirectoryEntry>\n";
-    	$xml_output .= "\t\t<Name>".$row['last_name'].' '.$row['first_name']."</Name>\n";
-    	$xml_output .= "\t\t<Telephone>" . $row['phone_number'] . "</Telephone>\n";
+    	$xml_output .= "\t\t<Name>".xml_escape($row['last_name'].' '.$row['first_name'])."</Name>\n";
+    	$xml_output .= "\t\t<Telephone>" . xml_escape($row['phone_number']) . "</Telephone>\n";
     	$xml_output .= "\t</DirectoryEntry>\n";
     }
     $xml_output .= "</CiscoIPPhoneDirectory>\n";

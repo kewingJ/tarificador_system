@@ -1,5 +1,12 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
+require_csrf();
+
 include_once '../includes/config.php';
+
+header('Content-Type: application/json; charset=utf-8');
 
 if (!isset($_POST['content'])) {
     echo json_encode(['ok' => false, 'message' => 'No se recibió el contenido del archivo.']);

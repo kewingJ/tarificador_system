@@ -1,0 +1,17 @@
+# Hardening de cookies de sesion (Fase 6 del plan de seguridad).
+# No se activa session.cookie_secure aqui porque depende de si el sitio
+# corre sobre HTTPS: activarlo sin HTTPS rompe el login silenciosamente.
+# Si el sitio ya usa HTTPS, agrega ademas:
+#   php_value session.cookie_secure 1
+<IfModule mod_php.c>
+    php_value session.cookie_httponly 1
+    php_value session.cookie_samesite Lax
+</IfModule>
+<IfModule mod_php7.c>
+    php_value session.cookie_httponly 1
+    php_value session.cookie_samesite Lax
+</IfModule>
+<IfModule php_module>
+    php_value session.cookie_httponly 1
+    php_value session.cookie_samesite Lax
+</IfModule>

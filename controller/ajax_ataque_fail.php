@@ -1,10 +1,14 @@
 <?php
+ 	session_start();
+ 	require_once '../includes/auth_check.php';
+ 	require_ajax_auth_or_cli();
  	include_once '../includes/config.php';
     include_once '../includes/security.php';
     include_once '../geoIp/geoiploc.php';
 
     error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
 
     date_default_timezone_set('America/Managua');
 	

@@ -1,16 +1,19 @@
 <?php
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
+	require_csrf();
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 	if (!empty($_POST['nombre'])) {
 
 		//guardo los datos del usuario
-		$nombre = clean(mysqli_real_escape_string($link,$_POST['nombre']));
-		$apellido = clean(mysqli_real_escape_string($link,$_POST['apellido']));
-		$email = clean(mysqli_real_escape_string($link,$_POST['email']));
-		$telefono = clean(mysqli_real_escape_string($link,$_POST['tel']));
-		$pass = clean(mysqli_real_escape_string($link,$_POST['pass']));
-		$id_cargo = 1; //clean(mysqli_real_escape_string($link,$_POST['id_cargo']));
+		$nombre = clean($_POST['nombre']);
+		$apellido = clean($_POST['apellido']);
+		$email = clean($_POST['email']);
+		$telefono = clean($_POST['tel']);
+		$pass = clean($_POST['pass']);
+		$id_cargo = 1;
 		$fecha_r = date('Y-m-d');
 		$activo = 1;
 
@@ -19,8 +22,11 @@
 			'cost' => 12
 		];
 		$passw = password_hash($pass,PASSWORD_BCRYPT,$opciones);
-				
-		$query = mysqli_query($link,"INSERT INTO usuario VALUES (0,'$nombre','$apellido','$email','$telefono','$passw','$id_cargo','$activo','$fecha_r')") or die(mysql_error());
+
+		$stmt = mysqli_prepare($link, "INSERT INTO usuario VALUES (0,?,?,?,?,?,?,?,?)");
+		mysqli_stmt_bind_param($stmt, 'sssssiis', $nombre, $apellido, $email, $telefono, $passw, $id_cargo, $activo, $fecha_r);
+		mysqli_stmt_execute($stmt);
+		mysqli_stmt_close($stmt);
 		echo "bien";
 	} else {
 		echo "mal";

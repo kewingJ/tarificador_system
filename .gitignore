@@ -1,0 +1,23 @@
+# Logs usados por el modulo de ataques (se regeneran solos)
+fail2ban.log
+sipban.log
+
+# Directorio telefonico generado (se regenera desde el panel)
+gs_phonebook.xml
+gs_phonebookCisco.xml
+gs_phonebookSnomIp.xml
+
+# Historial de licencias activadas
+licencias.txt
+
+# Cache/estado de licencia (cambia en cada visita)
+includes/license-cache/
+
+# Extensiones generadas localmente
+endpoints/tel_endpoints.conf
+
+# Sistema operativo / editor
+.DS_Store
+
+# Descomenta esta linea cuando quieras dejar de trackear includes/config.php
+# includes/config.php

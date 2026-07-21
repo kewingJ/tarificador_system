@@ -2,6 +2,8 @@
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	$id = $_SESSION['id_u'];
 
 	if (!empty($_POST['id_operador']) && !empty($_POST['nombre']) && !empty($_POST['costo1']) && !empty($_POST['costo2'])) 

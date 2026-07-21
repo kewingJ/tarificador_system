@@ -1,20 +1,26 @@
 <?php
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
+	require_csrf();
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 
 	if (!empty($_POST['id_usuario'])) {
-	
-		$id_usuario = $_POST['id_usuario'];
-		$nombre = clean(mysqli_real_escape_string($link,$_POST['nombre']));
-		$apellido = clean(mysqli_real_escape_string($link,$_POST['apellido']));
-		$email = clean(mysqli_real_escape_string($link,$_POST['email']));
-		$tele = clean(mysqli_real_escape_string($link,$_POST['tel']));
-		$pass = clean(mysqli_real_escape_string($link,$_POST['pass']));
-	
+
+		$id_usuario = (int) $_POST['id_usuario'];
+		$nombre = clean($_POST['nombre']);
+		$apellido = clean($_POST['apellido']);
+		$email = clean($_POST['email']);
+		$tele = clean($_POST['tel']);
+		$pass = clean($_POST['pass']);
+
 		if (empty($pass)){
 			//actualizamos la informacion del usuario
-			$query = mysqli_query($link,"UPDATE usuario SET nombre_u = '$nombre',apellido_u = '$apellido',email_u = '$email',telefono = '$tele' WHERE id_usuario = '$id_usuario'") or die(mysql_error());
+			$stmt = mysqli_prepare($link, "UPDATE usuario SET nombre_u = ?, apellido_u = ?, email_u = ?, telefono = ? WHERE id_usuario = ?");
+			mysqli_stmt_bind_param($stmt, 'ssssi', $nombre, $apellido, $email, $tele, $id_usuario);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
 		}
 		else {
 			//encriptar contraseña
@@ -22,9 +28,12 @@
 				'cost' => 12
 			];
 			$passw = password_hash($pass,PASSWORD_BCRYPT,$opciones);
-			
+
 			//actualizamos la informacion del usuario
-			$query = mysqli_query($link,"UPDATE usuario SET nombre_u = '$nombre',apellido_u = '$apellido',email_u = '$email',telefono = '$tele',contrasena = '$passw' WHERE id_usuario = '$id_usuario'") or die(mysql_error());
+			$stmt = mysqli_prepare($link, "UPDATE usuario SET nombre_u = ?, apellido_u = ?, email_u = ?, telefono = ?, contrasena = ? WHERE id_usuario = ?");
+			mysqli_stmt_bind_param($stmt, 'sssssi', $nombre, $apellido, $email, $tele, $passw, $id_usuario);
+			mysqli_stmt_execute($stmt);
+			mysqli_stmt_close($stmt);
 		}
 
 		echo "bien";

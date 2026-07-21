@@ -1,20 +1,23 @@
 <?php
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_ajax_auth();
     include_once '../includes/config.php';
     include_once '../includes/security.php';
 
     error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
 
-    $command = "curl -s -X GET -u $usuario_ari:$password_ari $ip_servidor_ari:8088/ari/channels";
+    $command = "curl -s --connect-timeout 3 --max-time 5 -X GET -u $usuario_ari:$password_ari $ip_servidor_ari:8088/ari/channels";
     $output = shell_exec($command);
 
     $json_data = $output;
 
     $resultadoString = "";
-    if($json_data != '[]')
+    $data = json_decode((string) $json_data, true);
+    if(!empty($data) && is_array($data))
     {
-        // Decodificar el JSON
-        $data = json_decode($json_data, true);
         $contador = 1;
 
         $resultadoString .= '

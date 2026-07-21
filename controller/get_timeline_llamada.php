@@ -3,6 +3,8 @@
     include_once '../includes/security.php';
     
     session_start();
+    require_once '../includes/auth_check.php';
+    require_ajax_auth();
     $id = $_SESSION['id_u'];
 
 	if (isset($_POST['id_llamada'])) 
@@ -18,10 +20,11 @@
                 <div class="col">
                     <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">';
 
-		$id_llamada = $_POST['id_llamada'];
-		$queryProject = mysqli_query($linkAsteriskcel,"SELECT * FROM cel
-                                WHERE linkedid = '$id_llamada'
-                                AND eventtype = 'APP_START'");
+		$id_llamada = (string) $_POST['id_llamada'];
+		$stmt = mysqli_prepare($linkAsteriskcel, "SELECT * FROM cel WHERE linkedid = ? AND eventtype = 'APP_START'");
+		mysqli_stmt_bind_param($stmt, 's', $id_llamada);
+		mysqli_stmt_execute($stmt);
+		$queryProject = mysqli_stmt_get_result($stmt);
         $total = mysqli_num_rows($queryProject);
         $i = 1;
 		while($rowProject = mysqli_fetch_array($queryProject)){

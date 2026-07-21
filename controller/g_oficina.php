@@ -3,6 +3,8 @@
 	include_once '../includes/security.php';
 
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	$id = $_SESSION['id_u'];
 
 	if (!empty($_POST['nombre'])) 

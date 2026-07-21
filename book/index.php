@@ -1,6 +1,10 @@
 <?php
     include_once '../includes/config.php';
     include_once '../includes/security.php';
+
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_web_auth(null, '../index.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

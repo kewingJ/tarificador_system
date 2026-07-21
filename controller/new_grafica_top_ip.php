@@ -1,9 +1,13 @@
 <?php
+  session_start();
+  require_once('../includes/auth_check.php');
+  require_ajax_auth();
+
   require("../includes/config.php");
   require("../includes/security.php");
 
-  $fecha1 = $_POST['fecha1'];
-  $fecha2 = $_POST['fecha2'];
+  $fecha1 = mysqli_real_escape_string($link, $_POST['fecha1']);
+  $fecha2 = mysqli_real_escape_string($link, $_POST['fecha2']);
 ?>
         <!-- grafica de top de ip bloqueadas -->
         <script type="text/javascript">

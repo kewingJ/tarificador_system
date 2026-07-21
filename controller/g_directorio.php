@@ -2,6 +2,8 @@
 	include_once '../includes/config.php';
 	include_once '../includes/security.php';
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	$id = $_SESSION['id_u'];
 
 	if (!empty($_POST['nombre']) && !empty($_POST['nombre2']) && !empty($_POST['tipo']) && !empty($_POST['cargo']) && !empty($_POST['oficina']) && !empty($_POST['tel']) && !empty($_POST['indice']))
@@ -17,9 +19,10 @@
 
 		//imagen de perfil
         $url = "https://api.genderize.io?name=" . urlencode($nombre);
-        $response = file_get_contents($url);
-        $data = json_decode($response, true);
-        $genero = $data['gender'];
+        $context = stream_context_create(['http' => ['timeout' => 3], 'https' => ['timeout' => 3]]);
+        $response = @file_get_contents($url, false, $context);
+        $data = $response !== false ? json_decode($response, true) : null;
+        $genero = is_array($data) ? ($data['gender'] ?? '') : '';
 
 		//insertar en la tabla phonebook
 		$query = mysqli_query($link,"INSERT INTO tbla_book_phonebook VALUES (0,'$nombre','$apellido','$tel','$indice','$tipo','$cargo','$oficina',1,'$fecha_r','$genero')") or die(mysqli_error($link));

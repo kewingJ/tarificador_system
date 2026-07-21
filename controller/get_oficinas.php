@@ -1,4 +1,7 @@
-<?php 
+<?php
+	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	include_once '../includes/config.php';
     include_once '../includes/security.php';
 
@@ -11,5 +14,5 @@
                                             WHERE activo_oficina = 1");
     $i = 1;
     while($row = mysqli_fetch_array($query)){
-        echo '<option value="'.$row['id_oficina'].'">'.$row['nombre_oficina'].'</option>';
+        echo '<option value="'.(int) $row['id_oficina'].'">'.htmlspecialchars(utf8_encode($row['nombre_oficina']), ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8').'</option>';
     }

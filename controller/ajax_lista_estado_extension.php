@@ -1,4 +1,8 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth_or_cli();
+
 // Ejecutar el comando Asterisk y capturar la salida
 $output = [];
 exec("asterisk -rx 'core show hints'", $output);

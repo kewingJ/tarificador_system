@@ -795,7 +795,8 @@
                     type: 'POST',
                     url: 'controller/xmpp_ajax.php',
                     data: data,
-                    dataType: 'json'
+                    dataType: 'json',
+                    timeout: 10000
                 });
             }
 
@@ -924,9 +925,40 @@
             var tablaGrupos;
             var tablaMiembros;
             var tablaLogs;
+            var tablaHistorial;
             var xmppHostActual = '<?php echo htmlspecialchars($defaultHost, ENT_QUOTES, 'UTF-8'); ?>';
             var grupoSeleccionado = null;
             var gruposXmppCache = [];
+            var chatHistorialLastId = 0;
+            var chatHistorialRequestEnCurso = false;
+
+            function verificarNuevosMensajesChat() {
+                if (chatHistorialRequestEnCurso || document.hidden || !$('#tab_historial').is(':visible')) {
+                    return;
+                }
+
+                chatHistorialRequestEnCurso = true;
+                $.ajax({
+                    url: 'ajax_table/ajax_chat_history_check.php',
+                    type: 'GET',
+                    dataType: 'json',
+                    timeout: 5000
+                }).done(function(resp) {
+                    var maxId = resp && resp.max_id ? parseInt(resp.max_id, 10) : 0;
+
+                    if (chatHistorialLastId === 0) {
+                        chatHistorialLastId = maxId;
+                        return;
+                    }
+
+                    if (maxId > chatHistorialLastId) {
+                        chatHistorialLastId = maxId;
+                        tablaHistorial.ajax.reload(null, false);
+                    }
+                }).always(function() {
+                    chatHistorialRequestEnCurso = false;
+                });
+            }
 
             function llenarConfig(config) {
                 if (!config) {
@@ -1183,7 +1215,7 @@
                 tablaGrupos = $('#tablaGruposXmpp').DataTable({ language: dataTableLang });
                 tablaMiembros = $('#tablaMiembrosGrupo').DataTable({ language: dataTableLang, paging: false, searching: false, info: false });
                 tablaLogs = $('#tablaLogsXmpp').DataTable({ language: dataTableLang, order: [[0, 'desc']] });
-                var tablaHistorial = $('#tablaHistorialChat').DataTable({
+                tablaHistorial = $('#tablaHistorialChat').DataTable({
                     language: dataTableLang,
                     processing: true,
                     serverSide: true,
@@ -1195,6 +1227,8 @@
                 cargarUsuarios();
                 cargarGrupos();
                 cargarLogs();
+
+                setInterval(verificarNuevosMensajesChat, 5000);
 
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function () {
                     $.fn.dataTable.tables({ visible: true, api: true }).columns.adjust();

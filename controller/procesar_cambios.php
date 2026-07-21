@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_ajax_auth();
+
     // lanzar comando "sudo /usr/bin/cp -r /var/www/ucs/endpoints/ext_endpoints.conf"
     $command = "sudo /usr/bin/cp -r /var/www/ucs/endpoints/tel_endpoints.conf /etc/asterisk/pjsip.d";
     exec($command, $output, $returnCode);

@@ -5,49 +5,24 @@
     date_default_timezone_set('America/Managua');
 
     session_start();
+    require_once 'includes/auth_check.php';
+    require_web_auth(1);
+
     $id = $_SESSION['id_u'];
     $nombre = $_SESSION['nombre'];
     $apellido = $_SESSION['apellido'];
     $activo = $_SESSION['activo'];
     $tipo = $_SESSION['tipo_usuario'];
-    
+
     /*optener solo el primer nombre y el primer apellido del profesor*/
     $nombre = explode(' ', $nombre);
     @$nombre = $nombre[0];
-    
+
     $apellido = explode(' ', $apellido);
     @$apellido = $apellido[0];
-    
+
     $consult = mysqli_query($link,"SELECT * FROM usuario WHERE id_usuario = '$id'");
     $row = mysqli_fetch_array($consult);
-    
-    if (empty($id) || empty($activo) || $tipo != 1) {
-        header("Location: index.php");
-    }
-
-    // if (empty($id) || empty($activo) || $tipo != 1) {
-    //     header("Location: index.php");
-    // } else {
-    //     $fechaGuardada = $_SESSION["ultimoAcceso"];
-    //     $ahora = date("Y-n-j H:i:s");
-    //     $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
-        
-    //     //echo $tiempo_transcurrido;
-    //     //comparamos el tiempo transcurrido
-    //     if($tiempo_transcurrido >= 1200) {
-    //         //si pasaron 20 minutos o más
-    //         session_destroy(); // destruyo la sesión
-    //         session_start();
-    //         $_SESSION['nombre_usuario']     = $nombre;
-    //         $_SESSION['apellido_usuario']   = $apellido;
-    //         $_SESSION['correo_usuario']     = $row['email_u'];
-
-    //         header("Location: lockscreen.php"); //envío al usuario a la pag. de autenticación
-    //         //sino, actualizo la fecha de la sesión
-    //     } else {
-    //         $_SESSION["ultimoAcceso"] = $ahora;
-    //     }
-    // }
 ?>
 <!DOCTYPE html>
 <html>
@@ -344,7 +319,8 @@
                             </div>
                             <div class="modal-body">
                                 <form id="FormU" class="FormUa" method="post" autocomplete="off" enctype="multipart/form-data">
-                        
+                                    <input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+
                                     <div class="form-group col-md-6">
                                         <label>Nombres del usuario</label>
                                         <div class="input-group date">
@@ -436,7 +412,8 @@
                             </div>
                             <div class="modal-body">
                                 <form id="FormU" class="FormUb" method="post" autocomplete="off" enctype="multipart/form-data">
-                        
+                                    <input type="hidden" name="csrf_token" value="<?php echo csrf_token(); ?>">
+
                                     <div class="form-group col-md-6">
                                         <label>Nombres del usuario</label>
                                         <div class="input-group date">
@@ -574,6 +551,8 @@
         </script>
 
         <script type="text/javascript">
+            var CSRF_TOKEN = <?php echo json_encode(csrf_token()); ?>;
+
             $(document).ready(function(){
 
                 //guardar la usuario
@@ -636,7 +615,8 @@
                     e.preventDefault();
                     var id_usuario = $(this).data('id');
                     var parametro = {
-                        "id_usuario" : id_usuario
+                        "id_usuario" : id_usuario,
+                        "csrf_token" : CSRF_TOKEN
                     }
                     $.ajax({
                         type: 'POST',

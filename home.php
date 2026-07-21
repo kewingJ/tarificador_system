@@ -6,6 +6,9 @@
     $licenciaStatus = false;
 
     session_start();
+    require_once 'includes/auth_check.php';
+    require_web_auth(1);
+
     $id = $_SESSION['id_u'];
     $nombre = $_SESSION['nombre'];
     $apellido = $_SESSION['apellido'];
@@ -21,40 +24,12 @@
     /*optener solo el primer nombre y el primer apellido del profesor*/
     $nombre = explode(' ', $nombre);
     @$nombre = $nombre[0];
-    
+
     $apellido = explode(' ', $apellido);
     @$apellido = $apellido[0];
-    
+
     $consult = mysqli_query($link,"SELECT * FROM usuario WHERE id_usuario = '$id'");
     $row = mysqli_fetch_array($consult);
-    
-    if (empty($id) || empty($activo) || $tipo != 1) {
-        header("Location: index.php");
-    }
-
-    // if (empty($id) || empty($activo) || $tipo != 1) {
-    //     header("Location: index.php");
-    // } else {
-    //     $fechaGuardada = $_SESSION["ultimoAcceso"];
-    //     $ahora = date("Y-n-j H:i:s");
-    //     $tiempo_transcurrido = (strtotime($ahora)-strtotime($fechaGuardada));
-        
-    //     //echo $tiempo_transcurrido;
-    //     //comparamos el tiempo transcurrido
-    //     if($tiempo_transcurrido >= 1200) {
-    //         //si pasaron 20 minutos o más
-    //         session_destroy(); // destruyo la sesión
-    //         session_start();
-    //         $_SESSION['nombre_usuario']     = $nombre;
-    //         $_SESSION['apellido_usuario']   = $apellido;
-    //         $_SESSION['correo_usuario']     = $row['email_u'];
-
-    //         header("Location: lockscreen.php"); //envío al usuario a la pag. de autenticación
-    //         //sino, actualizo la fecha de la sesión
-    //     } else {
-    //         $_SESSION["ultimoAcceso"] = $ahora;
-    //     }
-    // }
 ?>
 <!DOCTYPE html>
 <html>
@@ -129,6 +104,10 @@
         <link rel="stylesheet" type="text/css" href="assets/elements/tile-box.css">
 
         
+        <script>
+            var CSRF_TOKEN = <?php echo json_encode(csrf_token()); ?>;
+        </script>
+
         <script>
             function not1(){
                 notif({
@@ -3146,22 +3125,39 @@
         
         <script>
             $(document).ready(function () {
+                var listaLlamadasIntervalId = null;
+                var listaLlamadasRequestEnCurso = false;
+
+                function cargarListaLlamadas() {
+                    if (listaLlamadasRequestEnCurso) {
+                        return;
+                    }
+                    listaLlamadasRequestEnCurso = true;
+                    $.ajax({
+                        url: 'ajax_table/ajax_table_llamadas.php',
+                        type: 'POST',
+                        dataType: 'html',
+                        timeout: 8000
+                    })
+                    .done(function(data){
+                        if(data != "[]"){
+                            $('#content_dynamic_tabla_llamada').html('');
+                            $('#content_dynamic_tabla_llamada').html(data);
+                        } else {
+                            $('#content_dynamic_tabla_llamada').html('<table id="example3" class="table table-bordered table-striped"><thead><tr><th>#</th><th>De</th><th>Para</th></tr></thead><tbody><tr><td  colspan="3" class="dataTables_empty text-center">No data available in table</td></tr></tbody></table>');
+                        }
+                    })
+                    .always(function(){
+                        listaLlamadasRequestEnCurso = false;
+                    });
+                }
+
                 $(document).on('click','#listaLlamadas',function(e) {
-                    setInterval(function(){
-                        $.ajax({
-                            url: 'ajax_table/ajax_table_llamadas.php',
-                            type: 'POST',
-                            dataType: 'html'
-                        })
-                        .done(function(data){  
-                            if(data != "[]"){
-                                $('#content_dynamic_tabla_llamada').html('');  
-                                $('#content_dynamic_tabla_llamada').html(data); 
-                            } else {
-                                $('#content_dynamic_tabla_llamada').html('<table id="example3" class="table table-bordered table-striped"><thead><tr><th>#</th><th>De</th><th>Para</th></tr></thead><tbody><tr><td  colspan="3" class="dataTables_empty text-center">No data available in table</td></tr></tbody></table>');  
-                            }
-                        });
-                    }, 5000);
+                    if (listaLlamadasIntervalId !== null) {
+                        return;
+                    }
+                    cargarListaLlamadas();
+                    listaLlamadasIntervalId = setInterval(cargarListaLlamadas, 5000);
                 });
             });
         </script>
@@ -3679,7 +3675,7 @@
 
                     if (!$.fn.DataTable.isDataTable('#example5')) {
                         var table5 = $('#example5').DataTable({
-                            "ajax": "controller/ajax_lista_extensiones.php",
+                            "ajax": { "url": "controller/ajax_lista_extensiones.php", "timeout": 8000 },
                             "createdRow": function ( row, data, index ) {
                                 // 
                                 // if (data[1]) {
@@ -4726,7 +4722,7 @@
                 $.ajax({
                     url: 'controller/ajax_save_endpoints_file.php',
                     type: 'POST',
-                    data: { content: content },
+                    data: { content: content, csrf_token: CSRF_TOKEN },
                     dataType: 'json',
                     success: function(response){
                         btn.prop('disabled', false).text('Guardar y Sincronizar');

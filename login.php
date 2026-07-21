@@ -26,6 +26,7 @@ if(!empty($_POST['email']) && !empty($_POST['password']))
         if(password_verify($passenviada,$passactual))
         {
             session_start();
+            session_regenerate_id(true);
             $id_us = $_SESSION['id_u'] = $row['id_usuario'];
             $_SESSION['nombre'] = $row['nombre_u'];
             $_SESSION['apellido'] = $row['apellido_u'];

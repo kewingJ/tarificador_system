@@ -1,21 +1,36 @@
 <?php
 	session_start();
+	require_once '../includes/auth_check.php';
+	require_ajax_auth();
 	if(!empty($_POST['id_cdr']))
 	{
 		include_once '../includes/config.php';
 		include_once '../includes/security.php';
 
-		$data = $_POST['id_cdr'];
+		$data = is_array($_POST['id_cdr']) ? $_POST['id_cdr'] : [$_POST['id_cdr']];
 
         foreach($data as $id_cdr) {
-            //optener operador
-            $consult = mysqli_query($link,"SELECT * FROM cdr_espejo WHERE id_cdr = '$id_cdr'") or die(mysqli_error($link));
-            $row = mysqli_fetch_array($consult);
-            $operador = $row['operador'];
-            //eliminamos
-            $query1 = mysqli_query($link,"DELETE FROM cdr WHERE id = '$id_cdr'") or die(mysqli_error($link));
+            $id_cdr = (int) $id_cdr;
 
-            $query2 = mysqli_query($link,"DELETE FROM cdr_espejo WHERE id_cdr = '$id_cdr'") or die(mysqli_error($link));
+            //optener operador
+            $stmt = mysqli_prepare($link, "SELECT * FROM cdr_espejo WHERE id_cdr = ?");
+            mysqli_stmt_bind_param($stmt, 'i', $id_cdr);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $row = $result ? mysqli_fetch_array($result) : null;
+            mysqli_stmt_close($stmt);
+            $operador = $row['operador'] ?? null;
+
+            //eliminamos
+            $stmtDel1 = mysqli_prepare($link, "DELETE FROM cdr WHERE id = ?");
+            mysqli_stmt_bind_param($stmtDel1, 'i', $id_cdr);
+            mysqli_stmt_execute($stmtDel1);
+            mysqli_stmt_close($stmtDel1);
+
+            $stmtDel2 = mysqli_prepare($link, "DELETE FROM cdr_espejo WHERE id_cdr = ?");
+            mysqli_stmt_bind_param($stmtDel2, 'i', $id_cdr);
+            mysqli_stmt_execute($stmtDel2);
+            mysqli_stmt_close($stmtDel2);
 
             if(!empty($operador)){
                 $consult = mysqli_query($link,"SELECT * FROM estadistica_llamadas") or die(mysqli_error($link));

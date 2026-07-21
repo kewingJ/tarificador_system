@@ -1,5 +1,17 @@
 <?php
+    session_start();
+    require_once '../includes/auth_check.php';
+    require_web_auth();
     include_once '../includes/config.php';
+
+    function xls_safe_cell($value) {
+        $value = (string) $value;
+        if ($value !== '' && in_array($value[0], ['=', '+', '-', '@'], true)) {
+            return "'" . $value;
+        }
+        return $value;
+    }
+
     header("Content-type: application/vnd.ms-excel");
     $hoy = date("Y-m-d");
     header("Content-Disposition: attachment; filename=Reporte$hoy.xls");
@@ -34,16 +46,16 @@
             }
 ?>
           <tr>
-            <td><?php echo $data["id_cdr_espejo"];?></td>
-            <td><?php echo $data["nombre"];?></td>
-            <td><?php echo $data["origen"];?> </td>
-            <td><?php echo $data["destino"];?></td>
+            <td><?php echo (int) $data["id_cdr_espejo"];?></td>
+            <td><?php echo xls_safe_cell($data["nombre"]);?></td>
+            <td><?php echo xls_safe_cell($data["origen"]);?> </td>
+            <td><?php echo xls_safe_cell($data["destino"]);?></td>
             <?php echo '<td><font color="'.$colorEstado.'">'.$StringEstado.'</td>'; ?>
             <td><?php echo $data["fecha_llamada"];?></td>
             <td><?php echo $data["hora_llamada"];?></td>
             <td><?php echo $data["costo"];?></td>
             <td><?php echo $data["duracion"];?></td>
-            <td><?php echo $data["operador"];?></td>
+            <td><?php echo xls_safe_cell($data["operador"]);?></td>
           </tr>
           <?php
           }  

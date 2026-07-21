@@ -1,9 +1,13 @@
-<?php 
+<?php
+	session_start();
+	require_once('../includes/auth_check.php');
+	require_web_auth();
 	require_once('../includes/config.php');
     include_once '../includes/security.php';
 
     error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+    ini_set('display_errors', '0');
+    ini_set('log_errors', '1');
 
     if(!empty($_GET['extension']) && !empty($_GET['rangoFecha']))
     {

@@ -1,8 +1,11 @@
 <?php
+session_start();
+require_once '../includes/auth_check.php';
+require_ajax_auth();
 include_once '../includes/config.php';
  
 // DB table to use
-$nombre = $_POST['busqueda'];
+$nombre = mysqli_real_escape_string($link, $_POST['busqueda']);
 switch ($_POST['bandera']) {
     case 1:
         $table = <<<EOT
